@@ -9,12 +9,13 @@ import Element.Events exposing (onClick)
 ---- MODEL ----
 
 type alias Model =
-    { nothing: Nothing }
+    { nothing: Maybe Int
+    , width: Int }
 
 ---- MESSAGE ----
 
 type Message
     = ShowMenu Bool
-    | WidthChange int
+    | WidthChange Int
 
 ---- Elements ----
