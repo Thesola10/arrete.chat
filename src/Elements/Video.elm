@@ -36,7 +36,7 @@ elVideo url =
         , style "min-height" "100%"
         ] [ ] |> html
 
-videoFrame : S.Class -> String -> Element S.Class v Message
-videoFrame s url =
-    el s []
+videoFrame : S.Class -> List (Attribute v Message) -> String -> Element S.Class v Message
+videoFrame s a url =
+    el s a
         (elVideo url)

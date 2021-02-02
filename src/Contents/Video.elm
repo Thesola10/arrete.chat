@@ -8,6 +8,7 @@ import Browser.Events as Events
 import Browser.Dom exposing (getViewport)
 
 import Element exposing (Element, el, text)
+import Element.Attributes exposing (px, clip, width, height)
 
 import Elements.Video as E exposing (Message(..))
 
@@ -29,7 +30,11 @@ content =
 
 view : E.Model -> Html E.Message
 view m =
-    E.videoFrame S.Backdrop "/assets/arrete.webm"
+    E.videoFrame S.Backdrop
+        [ clip
+        , width  (px <| toFloat m.width)
+        , height (px <| toFloat m.height)
+        ] "/assets/arrete.webm"
         |> Element.layout S.stylesheet
 
 ---- UPDATES ----
