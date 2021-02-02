@@ -3,8 +3,13 @@ module Contents.Video exposing (content)
 import Contents exposing (Contents)
 
 import Html exposing (Html)
+import Browser.Navigation exposing (load)
+import Browser.Events as Events
+import Browser.Dom exposing (getViewport)
 
-import Elements.Video as E
+import Element exposing (Element, el, text)
+
+import Elements.Video as E exposing (Message(..))
 
 import Styles.Video as S
 
@@ -24,13 +29,14 @@ content =
 
 view : E.Model -> Html E.Message
 view m =
-    el Generic [] (text Generic "Hello")
+    el S.Generic [] (text "Hello")
+        |> Element.layout S.stylesheet
 
 ---- UPDATES ----
 
 init : () -> (E.Model, Cmd E.Message)
 init _ = 
-    ({ nothing = Nothing }, firstLoad)
+    ({ nothing = Nothing, width = 0 }, firstLoad)
 
 firstLoad : Cmd E.Message
 firstLoad = Task.perform (\v -> WidthChange <| round v.scene.width) getViewport
