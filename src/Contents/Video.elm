@@ -29,23 +29,24 @@ content =
 
 view : E.Model -> Html E.Message
 view m =
-    el S.Generic [] (text "Hello")
+    E.videoFrame S.Backdrop "/assets/arrete.webm"
         |> Element.layout S.stylesheet
 
 ---- UPDATES ----
 
 init : () -> (E.Model, Cmd E.Message)
 init _ = 
-    ({ nothing = Nothing, width = 0 }, firstLoad)
+    ({ width = 0, height = 0 }, firstLoad)
 
 firstLoad : Cmd E.Message
-firstLoad = Task.perform (\v -> WidthChange <| round v.scene.width) getViewport
+firstLoad = Task.perform 
+    (\v -> SizeChange (round v.scene.width) (round v.scene.height)) getViewport
 
 subscriptions : E.Model -> Sub E.Message
 subscriptions model =
-    Events.onResize (\w _ -> WidthChange w)
+    Events.onResize (\w h -> SizeChange w h)
 
 update : E.Message -> E.Model -> (E.Model, Cmd E.Message)
 update msg model = case msg of
-    WidthChange i -> ({model | width = i}, Cmd.none)
+    SizeChange i j -> ({model | width = i, height = j}, Cmd.none)
     _ -> (model, Cmd.none)

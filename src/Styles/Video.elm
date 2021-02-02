@@ -7,7 +7,7 @@ import Style.Border     as Border
 import Style.Transition as Transition
 
 ---- Selectors ----
-type Class  = Thing
+type Class  = Backdrop
             | Generic
 
 ---- Values ----
@@ -15,4 +15,7 @@ type Class  = Thing
 ---- Sections ----
 stylesheet : StyleSheet Class variation
 stylesheet = styleSheet
-    [ ]
+    [ style Backdrop
+        [
+        ]
+    ]
