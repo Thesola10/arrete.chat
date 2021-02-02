@@ -1,0 +1,19 @@
+{
+  "name": "arrete.chat",
+  "version": "1.0.0",
+  "description": "ARRETE",
+  "main": "index.js",
+  "author": "TheSola10 <thesola10@bobile.fr>",
+  "license": "WTFPL",
+  "engines": {
+    "yarn": "1.x"
+  },
+  "dependencies": {
+    "elm": "^0.19.1-5",
+    "http-server": "^0.12.3"
+  },
+  "scripts": {
+    "start": "http-server ./pub",
+    "build": "elm make src/Main.elm --output=./pub/index.html"
+  }
+}
