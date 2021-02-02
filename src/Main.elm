@@ -10,9 +10,9 @@ main : Program () E.Model E.Message
 main = contentElement C.content
 
 contentElement : Contents model msg -> Program () model msg
-contentElement co = Browser.element
+contentElement co = Browser.document
     { init = co.init
-    , view = co.view
+    , view = \m -> { title = "ARRETE", body = [co.view m] }
     , update = co.update
     , subscriptions = co.subs
     }
