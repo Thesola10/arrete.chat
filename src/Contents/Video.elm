@@ -35,7 +35,7 @@ view m =
         , width  (px <| toFloat m.width)
         , height (px <| toFloat m.height)
         ] "/assets/arrete.webm"
-        |> Element.layout S.stylesheet
+        |> Element.viewport S.stylesheet
 
 ---- UPDATES ----
 
