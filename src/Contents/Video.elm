@@ -49,7 +49,7 @@ firstLoad = Task.perform
 
 subscriptions : E.Model -> Sub E.Message
 subscriptions model =
-    Events.onResize (\w h -> SizeChange w h)
+    Events.onResize SizeChange
 
 update : E.Message -> E.Model -> (E.Model, Cmd E.Message)
 update msg model = case msg of
