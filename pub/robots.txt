@@ -1,0 +1,9 @@
+### BEGIN FILE ###
+
+# ARRETE
+User-agent: *
+Disallow: /assets/*
+
+Sitemap: https://arrete.chat/sitemap.xml
+
+### END FILE ###
