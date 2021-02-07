@@ -2,7 +2,7 @@
 
 # ARRETE
 User-agent: *
-Disallow: /assets/*
+Disallow: /assets/arrete.webm
 
 Sitemap: https://arrete.chat/sitemap.xml
 
