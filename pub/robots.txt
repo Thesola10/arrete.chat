@@ -2,6 +2,9 @@
 
 # ARRETE
 User-agent: *
+Allow: /index.html
+Allow: /elm.js
+Allow: /assets/banner.png
 Disallow: /assets/arrete.webm
 
 Sitemap: https://arrete.chat/sitemap.xml
