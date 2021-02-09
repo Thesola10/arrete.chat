@@ -1,4 +1,4 @@
-module Contents.Video exposing (content)
+port module Contents.Video exposing (content)
 
 import Contents exposing (Contents)
 
@@ -7,8 +7,8 @@ import Browser.Navigation exposing (load)
 import Browser.Events as Events
 import Browser.Dom exposing (getViewport)
 
-import Element exposing (Element, el, text)
-import Element.Attributes exposing (px, clip, width, height)
+import Element exposing (Element, el, text, column, modal)
+import Element.Attributes exposing (px, clip, width, height, paddingXY)
 
 import Elements.Video as E exposing (Message(..))
 
@@ -30,18 +30,22 @@ content =
 
 view : E.Model -> Html E.Message
 view m =
-    E.videoFrame S.Backdrop
+    column S.Generic []
+    [ E.videoFrame S.Backdrop
         [ clip
         , width  (px <| toFloat m.width)
         , height (px <| toFloat m.height)
         ] "/assets/arrete.webm"
-        |> Element.viewport S.stylesheet
+    , modal S.Generic 
+        [ paddingXY (toFloat <| m.width // 2 - 50) (toFloat <| m.height // 2 - 50) 
+        ] (E.playBtn m.playing)
+    ] |> Element.viewport S.stylesheet
 
 ---- UPDATES ----
 
 init : () -> (E.Model, Cmd E.Message)
 init _ = 
-    ({ width = 0, height = 0 }, firstLoad)
+    ({ width = 0, height = 0, playing = False }, firstLoad)
 
 firstLoad : Cmd E.Message
 firstLoad = Task.perform 
@@ -49,9 +53,20 @@ firstLoad = Task.perform
 
 subscriptions : E.Model -> Sub E.Message
 subscriptions model =
-    Events.onResize SizeChange
+    Sub.batch
+        [ Events.onResize SizeChange
+        , isPlaying GetPlaying
+        ]
 
 update : E.Message -> E.Model -> (E.Model, Cmd E.Message)
 update msg model = case msg of
     SizeChange i j -> ({model | width = i, height = j}, Cmd.none)
+    SetPlaying b -> (model, setPlaying b)
+    GetPlaying b -> ({model | playing = b}, Cmd.none)
     _ -> (model, Cmd.none)
+
+---- PORTS ----
+
+port setPlaying : Bool -> Cmd msg
+
+port isPlaying : (Bool -> msg) -> Sub msg
