@@ -1,7 +1,6 @@
 module Main exposing (main)
 
 import Browser as Browser
-import Html exposing (Html)
 import Contents exposing (Contents)
 import Contents.Video as C
 import Elements.Video as E

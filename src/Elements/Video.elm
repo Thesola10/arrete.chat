@@ -12,8 +12,6 @@ import Element.Events exposing (onClick)
 import Svg exposing (Svg, svg, polygon, circle, rect)
 import Svg.Attributes as SvgA
 
-import Style exposing (Style)
-
 ---- MODEL ----
 
 type alias Model =

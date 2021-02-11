@@ -3,11 +3,10 @@ port module Contents.Video exposing (content)
 import Contents exposing (Contents)
 
 import Html exposing (Html)
-import Browser.Navigation exposing (load)
 import Browser.Events as Events
 import Browser.Dom exposing (getViewport)
 
-import Element exposing (Element, el, text, column, modal)
+import Element exposing (screen, column, modal)
 import Element.Attributes exposing (px, clip, width, height, paddingXY)
 
 import Elements.Video as E exposing (Message(..))
@@ -31,7 +30,7 @@ content =
 view : E.Model -> Html E.Message
 view m =
     column S.Generic []
-    [ E.videoFrame S.Backdrop
+    [ screen <| E.videoFrame S.Backdrop
         [ clip
         , width  (px <| toFloat m.width)
         , height (px <| toFloat m.height)
@@ -52,7 +51,7 @@ firstLoad = Task.perform
     (\v -> SizeChange (round v.scene.width) (round v.scene.height)) getViewport
 
 subscriptions : E.Model -> Sub E.Message
-subscriptions model =
+subscriptions _ =
     Sub.batch
         [ Events.onResize SizeChange
         , isPlaying GetPlaying
