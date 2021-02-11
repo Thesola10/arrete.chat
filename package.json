@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "ARRETE",
   "main": "index.js",
-  "author": "TheSola10 <thesola10@bobile.fr>",
+  "author": "Karim Vergnes <thesola10@bobile.fr>",
   "license": "MIT",
   "engines": {
     "yarn": "1.x"
