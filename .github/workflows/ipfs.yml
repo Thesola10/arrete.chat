@@ -1,0 +1,33 @@
+name: deploy-to-ipfs
+
+on:
+    push:
+        paths:
+            - '**.elm'
+            - 'pub/**'
+
+jobs:
+    ipfs-deploy:
+        name: Load dat cat on a rocket to OUTER SPACE >:3
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+
+          - uses: jorelali/setup-elm@v2
+            with:
+                elm-version: 0.19.1
+          - name: Build website with Elm
+            run: elm make src/Main.elm --optimize --output pub/elm.js
+
+          - name: Add to IPFS
+            uses: quorumcontrol/ipfs-deploy-github-action@v1.1
+            with:
+                deploy-dir: pub
+                pinata-api-key: ${{ secrets.PINATA_KEY }}
+                pinata-secret-api-key: ${{ secrets.PINATA_SECRET }}
+                cloudflare-api-token: ${{ secrets.CLOUDFLARE_TOKEN }}
+                cloudflare-zone: arrete.chat
+                cloudflare-record: _dnslink.arrete.chat
+
+
