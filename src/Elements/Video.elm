@@ -2,7 +2,7 @@ module Elements.Video exposing (..)
 
 import Styles.Video as S exposing (Class(..))
 
-import Html exposing (video)
+import Html exposing (video, source)
 import Html.Attributes exposing (src, autoplay, style, id)
 
 import Element exposing (Element, Attribute, el, html, button)
@@ -34,14 +34,18 @@ type Message
 elVideo : String -> Element S.Class v Message
 elVideo url =
     video 
-        [ src url
-        , autoplay True 
+        [ autoplay True 
         , style "width" "auto"
         , style "height" "auto"
         , style "min-width" "100%"
         , style "min-height" "100%"
         , id "video"
-        ] [ ] |> html
+        ] 
+        [ source [ src url ] []
+        -- This workaround is necessary because Cloudflare's IPFS gateway
+        -- disallows video streaming :/
+        , source [ src <| "https://gateway.ipfs.io/ipns/arrete.chat/" ++ url ] []
+        ] |> html
 
 -- A container to add Style Elements attributes to the video
 videoFrame : S.Class -> List (Attribute v Message) -> String -> Element S.Class v Message
