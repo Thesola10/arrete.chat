@@ -31,8 +31,8 @@ type Message
 ---- Elements ----
 
 -- An HTML <video> tag embeddable into Style Elements
-elVideo : String -> Element S.Class v Message
-elVideo url =
+elVideo : (String, String) -> Element S.Class v Message
+elVideo (url, ipfsurl) =
     video 
         [ autoplay True 
         , style "width" "auto"
@@ -44,11 +44,11 @@ elVideo url =
         [ source [ src url ] []
         -- This workaround is necessary because Cloudflare's IPFS gateway
         -- disallows video streaming :/
-        , source [ src <| "https://gateway.ipfs.io/ipns/arrete.chat/" ++ url ] []
+        , source [ src <| "https://" ++ ipfsurl ++ ".ipfs.dweb.link" ] []
         ] |> html
 
 -- A container to add Style Elements attributes to the video
-videoFrame : S.Class -> List (Attribute v Message) -> String -> Element S.Class v Message
+videoFrame : S.Class -> List (Attribute v Message) -> (String, String) -> Element S.Class v Message
 videoFrame s a url =
     el s a
         (elVideo url)

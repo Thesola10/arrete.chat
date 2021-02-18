@@ -34,7 +34,7 @@ view m =
         [ clip
         , width  (px <| toFloat m.width)
         , height (px <| toFloat m.height)
-        ] "assets/arrete.webm"
+        ] ("assets/arrete.webm", "bafybeicf3wodkny7yn7gbucuipbcr7db5iyym73l6g2vbs7eopcl5vyjmu")
     , modal S.Generic 
         [ paddingXY (toFloat <| m.width // 2 - 50) (toFloat <| m.height // 2 - 50) 
         ] (E.playBtn m.playing)
