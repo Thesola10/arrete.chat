@@ -5,6 +5,8 @@ on:
         paths:
             - '**.elm'
             - 'pub/**'
+        branches:
+            - master
 
 jobs:
     ipfs-deploy:
