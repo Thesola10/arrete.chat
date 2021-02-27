@@ -5,12 +5,10 @@ on:
         paths:
             - '**.elm'
             - 'pub/**'
-        branches:
-            - master
 
 jobs:
-    ipfs-deploy:
-        name: Load dat cat on a rocket to OUTER SPACE >:3
+    elm-build:
+        name: Build website using Elm
         runs-on: ubuntu-latest
         steps:
           - name: Checkout code
@@ -20,8 +18,27 @@ jobs:
             with:
                 elm-version: 0.19.1
           - name: Build website with Elm
-            run: elm make src/Main.elm --optimize --output pub/elm.js
+            run: |
+                mkdir pub
+                cp -r static/* pub
+                elm make src/Main.elm --optimize --output pub/elm.js
+          - name: Upload artifact
+            uses: actions/upload-artifact@v2
+            with:
+                name: built-website
+                path: pub
 
+    ipfs-deploy:
+        name: Load dat cat on a rocket to OUTER SPACE >:3
+        needs: elm-build
+        runs-on: ubuntu-latest
+        environment: IPFS
+        steps:
+          - name: Retrieve built website
+            uses: actions/download-artifact@v2
+            with:
+                name: built-website
+                path: pub
           - name: Add to IPFS
             uses: quorumcontrol/ipfs-deploy-github-action@v1.1
             with:
