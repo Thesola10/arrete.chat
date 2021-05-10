@@ -4,7 +4,7 @@ on:
     push:
         paths:
             - '**.elm'
-            - 'pub/**'
+            - 'static/**'
 
 jobs:
     elm-build:
