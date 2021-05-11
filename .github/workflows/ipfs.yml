@@ -47,6 +47,7 @@ jobs:
                 service: pinata
                 pinataKey: ${{ secrets.PINATA_KEY }}
                 pinataSecret: ${{ secrets.PINATA_SECRET }}
+                pinataPinName: 'arrete.chat'
           - name: Update DNSLink
             uses: textileio/cloudflare-update-dnslink@v2
             with:
