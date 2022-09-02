@@ -55,7 +55,7 @@ videoFrame s a url =
 
 -- A button to toggle the playing state of the video
 playBtn : Bool -> Element S.Class v Message
-playBtn state = button PlayBtn
+playBtn state = button (PlayBtn state)
         [ onClick (SetPlaying (not state)) ]
         (if state then pauseS else playS)
 
